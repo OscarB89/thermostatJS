@@ -2,6 +2,7 @@ class Thermostat {
 
   constructor(setTemp = 20) {
     this.tempy = setTemp;
+    this.powerSavingModeOn = true;
   }
 
   temp() {
@@ -9,7 +10,12 @@ class Thermostat {
   }
 
   up() {
-    this.tempy += 1;
+    const maximumTemp = 25;
+    if(this.tempy < maximumTemp) {
+      this.tempy += 1;
+    } else {
+      throw new Error ("Too hot!")
+    }
   }
 
   down() {
@@ -20,6 +26,5 @@ class Thermostat {
       throw new Error ('Too cold')
     }
   }
-
 
 }

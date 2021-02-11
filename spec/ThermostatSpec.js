@@ -32,4 +32,17 @@ describe('Thermostat', function() {
       }).toThrow(new Error("Too cold"));
     });
   });
+
+  describe('power saving mode ', function(){
+    it('is ON when initialize', function(){
+      expect(thermostat.powerSavingModeOn).toBe(true);
+    });
+
+    it('sets maximum temperature at 25 degress when ON', function(){
+      thermostat = new Thermostat(25);
+      expect(function() {
+        thermostat.up();
+      }).toThrow(new Error("Too hot!"));
+    });
+  });
 });
