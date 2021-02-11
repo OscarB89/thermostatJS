@@ -24,6 +24,14 @@ describe('Thermostat', function() {
     });
   });
 
+  describe('reset button ', () => {
+    it('resets temperature to 20', () => {
+      thermostat = new Thermostat(25);
+      thermostat.reset();
+      expect(thermostat.temp()).toEqual(20);
+    });
+  });
+
   describe('minimum temp',function(){
     it('cannot go below 10', function(){
       thermostat = new Thermostat(10);
@@ -52,5 +60,29 @@ describe('Thermostat', function() {
         thermostat.up();
       }).toThrow(new Error("Too hot!"));
     });
+
+    it('can be turned OFF', () => {
+      thermostat = new Thermostat(20)
+      thermostat.setPowerSavingModeOn(false);
+      expect(thermostat.isPowerSavingModeOn()).toBe(false);
+    });
+  });
+  
+  describe('reports energy usage = ', () => {
+    it('"low-usage" when temp < 18', () => {
+      thermostat = new Thermostat(16);
+      expect(thermostat.energyUsage()).toEqual('low-usage');
+    });
+
+    it('"medium-usage" when temp <= 25', () => {
+      thermostat = new Thermostat(20);
+      expect(thermostat.energyUsage()).toEqual('medium-usage');
+    });
+
+    it('"high-usage" when temp > 25', () => {
+      thermostat = new Thermostat(26);
+      expect(thermostat.energyUsage()).toEqual('high-usage');
+    });
+
   });
 });
