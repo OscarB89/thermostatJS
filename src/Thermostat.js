@@ -2,7 +2,15 @@ class Thermostat {
 
   constructor(setTemp = 20) {
     this.tempy = setTemp;
-    this.powerSavingModeOn = true;
+    this._powerSavingModeOn = true;
+  }
+
+  isPowerSavingModeOn() {
+    return this._powerSavingModeOn;
+  }
+
+  setPowerSavingModeOn(mode) {
+    this._powerSavingModeOn = mode;
   }
 
   temp() {
@@ -10,7 +18,7 @@ class Thermostat {
   }
 
   up() {
-    const maximumTemp = 25;
+    const maximumTemp = this._powerSavingModeOn ? 25 : 32 ;
     if(this.tempy < maximumTemp) {
       this.tempy += 1;
     } else {
